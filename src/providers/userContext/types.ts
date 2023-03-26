@@ -5,8 +5,9 @@ interface iUserProviderProps {
 interface iUserProviderValue {
   globalLoading: boolean;
   openUserModal: boolean;
-  user: iUser | null;
-  userArr: iUser[] | null;
+  user: iUser;
+  userArr: iUser[];
+  isClosing: boolean;
   findUser: (id: number) => iUser | undefined;
   getUserInfo: (id: number) => void;
   userModalHandler: () => void;

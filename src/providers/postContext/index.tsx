@@ -16,6 +16,7 @@ const PostProvider = ({ children }: iPostProviderProps) => {
   const [postArr, setPostArr] = useState<tPostArr>([]);
   const [postComments, setPostComments] = useState<tCommentArr>([]);
   const [openCommentModal, setOpenCommentModal] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   const getPostComments = async (postId: number): Promise<void> => {
     try {
@@ -31,7 +32,11 @@ const PostProvider = ({ children }: iPostProviderProps) => {
   };
 
   const commentModalHandler = (): void => {
-    setOpenCommentModal(false);
+    setIsClosing(true);
+    setTimeout(() => {
+      setOpenCommentModal(false);
+      setIsClosing(false);
+    }, 600);
   };
 
   return (
@@ -46,6 +51,7 @@ const PostProvider = ({ children }: iPostProviderProps) => {
         postComments,
         commentModalHandler,
         openCommentModal,
+        isClosing,
       }}>
       {children}
     </PostContext.Provider>

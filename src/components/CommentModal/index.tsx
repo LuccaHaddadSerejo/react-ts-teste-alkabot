@@ -1,33 +1,42 @@
 import { useContext } from 'react';
 import { PostContext } from '../../providers/postContext';
+import { Button } from '../Button';
 import CommentCard from '../CommentCard';
+import { StyledModalBox, StyledModalWrapper } from './style';
 const CommentModal = () => {
-  const { postComments, commentModalHandler } = useContext(PostContext);
+  const { postComments, commentModalHandler, isClosing } =
+    useContext(PostContext);
 
   return (
-    <div>
-      <div>
-        <header>
-          <h2>Comentários:</h2>
-          <button onClick={() => commentModalHandler()}>X</button>
-        </header>
+    <StyledModalWrapper>
+      <StyledModalBox isClosing={isClosing}>
         <div>
-          <ul>
-            {postComments.map((comment) => {
-              return (
-                <CommentCard
-                  key={comment.id}
-                  name={comment.name}
-                  email={comment.email}
-                  body={comment.body}
-                />
-              );
-            })}
-          </ul>
+          <h2>Comentários:</h2>
+          <Button
+            onClick={() => commentModalHandler()}
+            type={'button'}
+            buttonVariation={'closeModal'}>
+            X
+          </Button>
         </div>
-      </div>
-    </div>
+        <ul>
+          {postComments.map((comment) => {
+            return (
+              <CommentCard
+                key={comment.id}
+                name={comment.name}
+                email={comment.email}
+                body={comment.body}
+              />
+            );
+          })}
+        </ul>
+      </StyledModalBox>
+    </StyledModalWrapper>
   );
 };
 
 export default CommentModal;
+function useState(arg0: boolean): [any, any] {
+  throw new Error('Function not implemented.');
+}
