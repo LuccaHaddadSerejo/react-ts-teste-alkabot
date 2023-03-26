@@ -24,8 +24,11 @@ const StyledModalBox = styled.div<iStyledModalProps>`
   max-width: 1200px;
   border: 2px solid var(--color-primary);
   border-radius: var(--radius2) var(--radius2);
-  position: relative;
-  bottom: 100px;
+
+  @media (min-width: 1024px) {
+    position: relative;
+    bottom: 100px;
+  }
 
   ${({ isClosing }) => {
     if (isClosing) {
