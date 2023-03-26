@@ -1,15 +1,25 @@
 import React from 'react';
+import { StyledButton } from './style';
 
 interface iButtonProps {
   children: React.ReactNode;
   type: 'button' | 'submit' | 'reset';
   onClick?: () => void;
+  buttonVariation?: string;
 }
 
-export const Button = ({ children, onClick, type }: iButtonProps) => {
+export const Button = ({
+  children,
+  onClick,
+  type,
+  buttonVariation,
+}: iButtonProps) => {
   return (
-    <button type={type} onClick={onClick}>
+    <StyledButton
+      buttonVariation={buttonVariation}
+      type={type}
+      onClick={onClick}>
       {children}
-    </button>
+    </StyledButton>
   );
 };

@@ -11,9 +11,10 @@ const UserContext = createContext({} as iUserProviderValue);
 
 const UserProvider = ({ children }: iUserProviderProps) => {
   const [globalLoading, setGlobalLoading] = useState(false);
-  const [user, setUser] = useState<null | iUser>(null);
-  const [userArr, setUserArr] = useState<null | iUser[]>(null);
   const [openUserModal, setOpenUserModal] = useState(false);
+  const [user, setUser] = useState<iUser>({} as iUser);
+  const [userArr, setUserArr] = useState<tUserArr>([]);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -29,11 +30,6 @@ const UserProvider = ({ children }: iUserProviderProps) => {
     })();
   }, []);
 
-  const findUser = (id: number): iUser | undefined => {
-    const user = userArr!.find((user) => user.id === id);
-    return user;
-  };
-
   const getUserInfo = async (id: number): Promise<void> => {
     try {
       setGlobalLoading(true);
@@ -48,7 +44,15 @@ const UserProvider = ({ children }: iUserProviderProps) => {
   };
 
   const userModalHandler = (): void => {
-    setOpenUserModal(false);
+    setIsClosing(true);
+    setTimeout(() => {
+      setOpenUserModal(false);
+      setIsClosing(false);
+    }, 600);
+  };
+
+  const findUser = (id: number): iUser | undefined => {
+    return userArr.find((user) => user.id === id);
   };
 
   return (
@@ -61,6 +65,7 @@ const UserProvider = ({ children }: iUserProviderProps) => {
         getUserInfo,
         openUserModal,
         userModalHandler,
+        isClosing,
       }}>
       {children}
     </UserContext.Provider>

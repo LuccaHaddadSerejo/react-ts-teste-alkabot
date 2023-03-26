@@ -1,12 +1,13 @@
 import { iComment } from '../../providers/postContext/types';
+import { StyledLi } from './style';
 
 const CommentCard = ({ name, email, body }: iComment) => {
   return (
-    <li>
+    <StyledLi>
       <h3>{name}</h3>
-      <h4>{email}</h4>
+      <span>{email}</span>
       <p>{body}</p>
-    </li>
+    </StyledLi>
   );
 };
 

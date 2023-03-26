@@ -14,6 +14,7 @@ interface iPostProviderValue {
   setGlobalLoading: React.Dispatch<SetStateAction<boolean>>;
   getPostComments: (postId: number) => Promise<void>;
   commentModalHandler: () => void;
+  isClosing: boolean;
 }
 
 interface iPost {

@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../../providers/userContext';
 import { iUserInfo } from '../../providers/userContext/types';
 import { Button } from '../Button';
+import { StyledDivInfo, StyledModalBox, StyledModalWrapper } from './style';
 
 const UserInfoModal = () => {
   const [userInfo, setUserInfo] = useState<iUserInfo>({
@@ -9,74 +10,116 @@ const UserInfoModal = () => {
     geo: false,
     company: false,
   });
-  const { userModalHandler, user } = useContext(UserContext);
 
-  const handleClick = (property: keyof iUserInfo): void => {
+  const { userModalHandler, user, isClosing } = useContext(UserContext);
+
+  const handleClick = (key: keyof iUserInfo): void => {
     setUserInfo((prevState) => {
       return {
         ...prevState,
-        [property]: !prevState[property],
+        [key]: !prevState[key],
       };
     });
   };
 
   return (
-    <div>
-      <div>
-        <header>
-          <h2>Informações do Usuário:</h2>
-          <Button onClick={() => userModalHandler()} type={'button'}>
+    <StyledModalWrapper>
+      <StyledModalBox isClosing={isClosing}>
+        <div>
+          <h3>Informações do Usuário:</h3>
+          <Button
+            onClick={() => userModalHandler()}
+            type={'button'}
+            buttonVariation={'closeModal'}>
             X
           </Button>
-        </header>
-        <div>
-          <h3>{user!.name}</h3>
-          <h3>{user!.username}</h3>
-          <h3>{user!.email}</h3>
-          <div>
-            <h3>Address:</h3>
-            <Button onClick={() => handleClick('address')} type={'button'}>
-              {userInfo.address ? '-' : '+'}
-            </Button>
-          </div>
-          {userInfo.address && (
-            <div>
-              <h4>{user!.address!.street}</h4>
-              <h4>{user!.address!.suite}</h4>
-              <h4>{user!.address!.city}</h4>
-              <h4>{user!.address!.zipcode}</h4>
-              <div>
-                <h4>Geo:</h4>
-                <Button onClick={() => handleClick('geo')} type={'button'}>
-                  {userInfo.geo ? '-' : '+'}
-                </Button>
-              </div>
-              {userInfo.geo && (
-                <div>
-                  <h5>{user!.address!.geo.lat}</h5>
-                  <h5>{user!.address!.geo.lng}</h5>
-                </div>
-              )}
-            </div>
-          )}
-          <h3>{user!.phone}</h3>
-          <h3>{user!.website}</h3>
-          <div>
-            <h3>Company:</h3>
-            <Button onClick={() => handleClick('company')} type={'button'}>
-              {userInfo.company ? '-' : '+'}
-            </Button>
-          </div>
-          {userInfo.company && (
-            <div>
-              <h4>{user!.company!.name}</h4>
-              <h4>{user!.company!.catchPhrase}</h4>
-              <h4>{user!.company!.bs}</h4>
-            </div>
-          )}
         </div>
-      </div>
-    </div>
+
+        <div>
+          <h4>Name:</h4>
+          <span>{user!.name}</span>
+
+          <h4>Username:</h4>
+          <span>{user!.username}</span>
+
+          <h4>Email:</h4>
+          <span>{user!.email}</span>
+
+          <h4>Phone:</h4>
+          <span>{user!.phone}</span>
+
+          <h4>Website:</h4>
+          <span>{user!.website}</span>
+
+          <div>
+            <StyledDivInfo>
+              <h4>Address</h4>
+              <Button
+                onClick={() => handleClick('address')}
+                type={'button'}
+                buttonVariation={'openInfoDetail'}>
+                {userInfo.address ? '-' : '+'}
+              </Button>
+            </StyledDivInfo>
+
+            {userInfo.address && (
+              <div>
+                <h4>Street:</h4>
+                <span>{user!.address!.street}</span>
+                <h4>Suite:</h4>
+                <span>{user!.address!.suite}</span>
+                <h4>City:</h4>
+                <span>{user!.address!.city}</span>
+                <h4>Zipcode:</h4>
+                <span>{user!.address!.zipcode}</span>
+                <div>
+                  <StyledDivInfo>
+                    <h4>Geo</h4>
+                    <Button
+                      onClick={() => handleClick('geo')}
+                      type={'button'}
+                      buttonVariation={'openInfoDetail'}>
+                      {userInfo.geo ? '-' : '+'}
+                    </Button>
+                  </StyledDivInfo>
+                  {userInfo.geo && (
+                    <>
+                      <h4>Lat:</h4>
+                      <span>{user!.address!.geo.lat}</span>
+                      <h4>Lng</h4>
+                      <span>{user!.address!.geo.lng}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div>
+            <StyledDivInfo>
+              <h4>Company</h4>
+              <Button
+                onClick={() => handleClick('company')}
+                type={'button'}
+                buttonVariation='openInfoDetail'>
+                {userInfo.company ? '-' : '+'}
+              </Button>
+            </StyledDivInfo>
+
+            {userInfo.company && (
+              <>
+                <h4>Name:</h4>
+                <span>{user!.company!.name}</span>
+                <h4>CatchPhrase</h4>
+                <span>{user!.company!.catchPhrase}</span>
+                <h4>Bs</h4>
+                <span>{user!.company!.bs}</span>
+              </>
+            )}
+          </div>
+        </div>
+      </StyledModalBox>
+    </StyledModalWrapper>
   );
 };
 
