@@ -1,3 +1,3 @@
 # teste-pratico-blog-alkabot
 
-<p>Teste prático para a empresa Alkabot, foi utilizado uma API disponibilizada pela empresa para desenvolver a atividade proposta.</p>
+<p> Teste prático desenvolvido para a empresa Alkabot. A tarefa proposta foi desenvolver uma página de blog em React, utilizando uma API disponibilizada pela empresa para realizar o projeto. </p>
