@@ -1,3 +1,3 @@
-# teste-pratico-alkabot-luccahaddadserejo
+# teste-pratico-blog-alkabot
 
-<p>O projeto está todo na branch develop</p>
+<p>Teste prático para a empresa Alkabot, foi utilizado uma API disponibilizada pela empresa para desenvolver a atividade proposta.</p>
